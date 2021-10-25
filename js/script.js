@@ -14,9 +14,22 @@
 
 'use strict';
 
-const bgOfMarsianin = document.querySelector(".promo__bg").style.background = "url(../img/bg.jpg)";
-console.log(bgOfMarsianin);
+const adv = document.querySelectorAll('.promo__adv img');
+const genre = document.querySelector('.promo__genre');
+const poster = document.querySelector(".promo__bg");
+const listOfFilms = document.querySelector(".promo__interactive-list");
 
+adv.forEach(item => {
+    item.remove();
+});
+
+listOfFilms.innerHTML = "";
+
+genre.textContent = "ДРАМА";
+
+poster.style.backgroundImage = "url('img/bg.jpg')";
+
+console.log(poster.innerHTML)
 
 const movieDB = {
     movies: [
@@ -28,14 +41,23 @@ const movieDB = {
     ]
 };
 
-const listOfFilms = document.querySelector(".promo__interactive-list");
 let filmName;
-movieDB.movies.sort().forEach(element => {
-    const li = document.createElement("li");
-    let text = document.createTextNode(element);
-    li.appendChild(text);
-    li.classList.add("promo__interactive-item");
-    listOfFilms.appendChild(li);
+let count;
+
+movieDB.movies.sort().forEach((element, index) => {
+
+    listOfFilms.innerHTML += `
+    <li class="promo__interactive-item">${++index}. ${element}
+        <div class="delete"></div>
+    </li>
+    `
+
+    // const li = document.createElement("li");
+    // let text = document.createTextNode(element);
+    // li.appendChild(text);
+    // li.classList.add("promo__interactive-item");
+    // console.log(li.prepend(count));
+    // listOfFilms.appendChild(li);
 });
 
 
