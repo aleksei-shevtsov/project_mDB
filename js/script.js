@@ -28,4 +28,14 @@ const movieDB = {
     ]
 };
 
+const listOfFilms = document.querySelector(".promo__interactive-list");
+let filmName;
+movieDB.movies.sort().forEach(element => {
+    const li = document.createElement("li");
+    let text = document.createTextNode(element);
+    li.appendChild(text);
+    li.classList.add("promo__interactive-item");
+    listOfFilms.appendChild(li);
+});
+
 
