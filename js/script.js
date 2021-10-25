@@ -14,6 +14,10 @@
 
 'use strict';
 
+const bgOfMarsianin = document.querySelector(".promo__bg").style.background = "url(../img/bg.jpg)";
+console.log(bgOfMarsianin);
+
+
 const movieDB = {
     movies: [
         "Логан",
@@ -23,4 +27,5 @@ const movieDB = {
         "Скотт Пилигрим против..."
     ]
 };
+
 
