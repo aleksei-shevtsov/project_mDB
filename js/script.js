@@ -23,8 +23,7 @@ const listOfFilms = document.querySelector(".promo__interactive-list");
 const addForm = document.querySelector("form.add");
 const addInput = addForm.querySelector(".adding__input");
 const checkbox = addForm.querySelector("[type='checkbox']");
-// const submitBtn = document.querySelector("#submit");
-// const basket = listOfFilms.querySelector("#basket");
+
 addForm.addEventListener('submit', (event) => {
 
     event.preventDefault();
@@ -35,7 +34,7 @@ addForm.addEventListener('submit', (event) => {
     if (newFilm) {
 
         if (newFilm.length > 21) {
-            newFilm = `${newFilm.substring(0, 22)}...`
+            newFilm = `${newFilm.substring(0, 22)}...` //обрезаем строку до 21 символа, добавляем "..."
         }
 
         if (favourite) {
@@ -45,7 +44,7 @@ addForm.addEventListener('submit', (event) => {
         sortArr(movieDB.movies);
         createMovieList(movieDB.movies, listOfFilms);
     }
-    event.target.reset();
+    event.target.reset(); //очистить input
 });
 
 const deleteAdv = (arr) => {
@@ -53,8 +52,6 @@ const deleteAdv = (arr) => {
         item.remove();
     });
 }
-
-listOfFilms.innerHTML = "";
 
 const makeChanges = () => {
     genre.textContent = "ДРАМА";
@@ -75,9 +72,6 @@ const movieDB = {
     ]
 };
 
-let filmName;
-let count;
-
 function createMovieList(films, parent) {
     parent.innerHTML = '';
     sortArr(films);
@@ -96,26 +90,7 @@ function createMovieList(films, parent) {
         });
     });
 }
+
 deleteAdv(adv);
 makeChanges();
 createMovieList(movieDB.movies, listOfFilms);
-
-const addFilm = (event) => {
-
-};
-
-const deleteFilm = (event) => {
-    // console.log(event)
-    // console.log(basket)
-    console.log("clicked")
-    
-}
-
-
-
-
-// 1) Реализовать функционал, что после заполнения формы и нажатия кнопки "Подтвердить" - 
-// новый фильм добавляется в список. Страница не должна перезагружаться.
-// Новый фильм должен добавляться в movieDB.movies.
-// Для получения доступа к значению input - обращаемся к нему как input.value;
-// P.S. Здесь есть несколько вариантов решения задачи, принимается любой, но рабочий.
