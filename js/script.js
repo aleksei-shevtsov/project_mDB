@@ -1,5 +1,4 @@
 /* Задания на урок:
-
 1) Реализовать функционал, что после заполнения формы и нажатия кнопки "Подтвердить" - 
 новый фильм добавляется в список. Страница не должна перезагружаться.
 Новый фильм должен добавляться в movieDB.movies.
@@ -17,4 +16,106 @@ P.S. Здесь есть несколько вариантов решения з
 
 'use strict';
 
-// Возьмите свой код из предыдущей практики
+const adv = document.querySelectorAll(".promo__adv img");
+const genre = document.querySelector(".promo__genre");
+const poster = document.querySelector(".promo__bg");
+const listOfFilms = document.querySelector(".promo__interactive-list");
+const addForm = document.querySelector("form.add");
+const addInput = addForm.querySelector(".adding__input");
+const checkbox = addForm.querySelector("[type='checkbox']");
+// const submitBtn = document.querySelector("#submit");
+// const basket = listOfFilms.querySelector("#basket");
+addForm.addEventListener('submit', (event) => {
+
+    event.preventDefault();
+
+    let newFilm = addInput.value;
+    let favourite = checkbox.checked;
+
+    if (newFilm) {
+
+        if (newFilm.length > 21) {
+            newFilm = `${newFilm.substring(0, 22)}...`
+        }
+
+        if (favourite) {
+            console.log('Добавляем любимый фильм');
+        }
+        movieDB.movies.push(newFilm);
+        sortArr(movieDB.movies);
+        createMovieList(movieDB.movies, listOfFilms);
+    }
+    event.target.reset();
+});
+
+const deleteAdv = (arr) => {
+    arr.forEach(item => {
+        item.remove();
+    });
+}
+
+listOfFilms.innerHTML = "";
+
+const makeChanges = () => {
+    genre.textContent = "ДРАМА";
+    poster.style.backgroundImage = "url('img/bg.jpg')";
+}
+
+const sortArr = (arr) => {
+    arr.sort();
+}
+
+const movieDB = {
+    movies: [
+        "Логан",
+        "Лига справедливости",
+        "Ла-ла лэнд",
+        "Одержимость",
+        "Скотт Пилигрим против..."
+    ]
+};
+
+let filmName;
+let count;
+
+function createMovieList(films, parent) {
+    parent.innerHTML = '';
+    sortArr(films);
+    films.forEach((element, index) => {
+        parent.innerHTML += `
+        <li class="promo__interactive-item">${++index}. ${element}
+            <div class="delete"></div>
+        </li>
+        `;
+    });
+    document.querySelectorAll(".delete").forEach((btn, index)=>{
+        btn.addEventListener('click', ()=>{
+            btn.parentElement.remove();
+            movieDB.movies.splice(index, 1);
+            createMovieList(films, parent);
+        });
+    });
+}
+deleteAdv(adv);
+makeChanges();
+createMovieList(movieDB.movies, listOfFilms);
+
+const addFilm = (event) => {
+
+};
+
+const deleteFilm = (event) => {
+    // console.log(event)
+    // console.log(basket)
+    console.log("clicked")
+    
+}
+
+
+
+
+// 1) Реализовать функционал, что после заполнения формы и нажатия кнопки "Подтвердить" - 
+// новый фильм добавляется в список. Страница не должна перезагружаться.
+// Новый фильм должен добавляться в movieDB.movies.
+// Для получения доступа к значению input - обращаемся к нему как input.value;
+// P.S. Здесь есть несколько вариантов решения задачи, принимается любой, но рабочий.
